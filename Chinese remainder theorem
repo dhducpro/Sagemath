@@ -1,0 +1,24 @@
+#function which return the dividend
+def g(L):
+    L2=[]
+    n=len(L)
+    m = matrix(QQ, n, n)
+    for i in [0..len(L)-1]:
+      for j in [i+1..len(L)-1]:
+         L1=xgcd(L[i][0],L[j][0])
+         m[i,j]=L1[1]*L[i][0]
+         m[j,i]=L1[2]*L[j][0]
+      m[i,i]=1
+    for i in [0..n-1]:
+      ai=product(m.column(i))
+      L2.append(ai)
+    c=0;a=1
+    for i in [0..n-1]:
+       c=c+L[i][1]*L2[i]
+       a=a*L[i][0]
+    return c%a
+    
+    #test
+L=[(5,1),(7,6),(9,5)]
+g(L)
+> 41
