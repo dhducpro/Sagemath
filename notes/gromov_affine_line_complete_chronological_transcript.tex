@@ -1,0 +1,615 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\A}{\mathbb A}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\Lef}{\mathbb L}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Bir}{\mathrm{Bir}}
+\newcommand{\Burn}{\mathrm{Burn}}
+\newcommand{\MRC}{\mathrm{MRC}}
+\newcommand{\PPAV}{\mathrm{PPAV}}
+\newcommand{\Alb}{\operatorname{Alb}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\CH}{\operatorname{CH}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\Bl}{\operatorname{Bl}}
+
+\newcounter{qacounter}
+\newenvironment{chatquestion}[1][]%
+{\refstepcounter{qacounter}\par\medskip\noindent
+\colorbox{blue!8}{\parbox{0.965\linewidth}{\textbf{Question \theqacounter.}\if\relax\detokenize{#1}\relax\else\ \textbf{#1}\fi}}
+\par\smallskip\begin{quote}\itshape}
+{\end{quote}}
+\newenvironment{chatanswer}{\par\noindent\textbf{Answer.}\ }{\par\medskip}
+\newenvironment{editorialnote}{\par\smallskip\noindent\colorbox{yellow!12}{\parbox{0.965\linewidth}{\textbf{Editorial note.}\ }}{\par\smallskip}
+
+\title{\textbf{The Gromov--Lamy--Sebag Question, Affine-Line Cancellation, and Birational Boundary Invariants}\\[4pt]
+\large Complete Chronological Question--Answer Transcript}
+\author{Prepared from the mathematical chat}
+\date{31 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document records the chronological mathematical discussion concerning the Gromov--Lamy--Sebag question, the cancellation of the affine line in the Grothendieck ring of varieties, maximal level-one Hodge substructures, intermediate Jacobians, one-motives, Kontsevich--Tschinkel Burnside birational types, and Lin--Shinder motivic invariants of birational maps.  The questions and answers are retained in their logical order.  Minor grammatical and notational edits have been made for readability.  Later qualifications and corrections are explicitly preserved, especially the distinction between proved unpolarized compatibility and the conjectural polarized higher-dimensional boundary realization.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{The Lamy--Sebag theorem and removal of the Hodge-number assumptions}
+
+\begin{chatquestion}[The initial Gromov--Lamy--Sebag question]
+Let $X$ be a smooth projective variety of dimension $3$ over $\C$, satisfying
+\[
+ h^{3,0}(X)=h^{1,0}(X)=0.
+\]
+Lamy and Sebag prove that for every birational self-map $f:X\dashrightarrow X$, the complements of the exceptional loci are piecewise isomorphic.  Can one remove the hypothesis $h^{3,0}(X)=0$, or replace the full intermediate Jacobian by a more appropriate Hodge-theoretic object?
+\end{chatquestion}
+
+\begin{chatanswer}
+The natural replacement is the maximal level-one Hodge substructure of $H^3(X)$.
+Let
+\[
+ H_h^3(X)\subset H^3(X,\Q)
+\]
+be the largest rational Hodge substructure having only Hodge types $(2,1)$ and $(1,2)$.  After a Tate twist it becomes a pure weight-one Hodge structure, hence defines an abelian variety up to isogeny, usually denoted
+\[
+ J_h^2(X).
+\]
+For a blow-up of a smooth threefold along a smooth curve $C$,
+\[
+ \widetilde X=\Bl_C X,
+\]
+the cohomological blow-up formula gives
+\[
+ H^3(\widetilde X,\Q)\cong H^3(X,\Q)\oplus H^1(C,\Q)(-1).
+\]
+Taking maximal level-one parts gives
+\[
+ H_h^3(\widetilde X)\cong H_h^3(X)\oplus H^1(C)(-1),
+\]
+so at the level of associated abelian varieties one expects
+\[
+ J_h^2(\widetilde X)\cong J_h^2(X)\times J(C).
+\]
+The exceptional curve therefore contributes its Jacobian exactly as in the Lamy--Sebag proof.  If this isomorphism is compatible with product polarizations, then unique decomposition of polarized abelian varieties and Torelli recover the curve centers.  This gives the same cancellation mechanism without requiring the full intermediate Jacobian to be an abelian variety.
+\end{chatanswer}
+
+\begin{chatquestion}[Relation with the Hodge--Grothendieck conjecture]
+How is this replacement related to the Hodge--Grothendieck conjecture?  Does the maximal level-one Hodge substructure have to be algebraic?
+\end{chatquestion}
+
+\begin{chatanswer}
+The Hodge--Grothendieck conjecture predicts that coniveau or level conditions on rational Hodge substructures are induced by algebraic correspondences.  In the present situation one considers the maximal level-one part
+\[
+ H_h^{2k-1}(X)\subset H^{2k-1}(X,\Q).
+\]
+The conjectural algebraic picture is that this substructure should be cut out by an algebraic correspondence, or equivalently should come from the abelian part of the motive of $X$.  However, for the blow-up argument itself one does not need the entire Hodge--Grothendieck conjecture.  The blow-up decomposition is already algebraic and functorial enough to show that the exceptional summand $H^1(C)(-1)$ lies in the maximal level-one part.  The conjecture becomes relevant if one wants a fully motivic or correspondence-theoretic realization of $J_h^k(X)$.
+\end{chatanswer}
+
+\begin{chatquestion}[Murre's algebraic representative]
+Can one replace $J_h^2(X)$ by Murre's algebraic representative of algebraically trivial codimension-two cycles?
+\end{chatquestion}
+
+\begin{chatanswer}
+Yes, at least conceptually.  Murre constructs an algebraic representative for algebraically trivial codimension-two cycles,
+\[
+ A^2(X)\longrightarrow \operatorname{Ab}^2(X),
+\]
+where $A^2(X)$ denotes codimension-two cycles algebraically equivalent to zero.  Over $\C$, the image of the Abel--Jacobi map is an abelian subvariety
+\[
+ J_a^2(X)\subset J^2(X),
+\]
+and it is closely related to Murre's algebraic representative.  For blow-ups one has compatible decompositions of Chow groups and algebraic representatives.  In a threefold blown up along a curve $C$, the curve contributes $J(C)$.  Thus $J_a^2$ or Murre's representative is another natural replacement for the full intermediate Jacobian.  The central issue remains the polarization needed for Torelli.
+\end{chatanswer}
+
+\section{Blow-up formulas, direct sums, and polarizations}
+
+\begin{chatquestion}[General blow-up formula for maximal level-one pieces]
+For a blow-up along a smooth center of arbitrary codimension, is the maximal level-one Hodge substructure compatible with the blow-up decomposition?
+\end{chatquestion}
+
+\begin{chatanswer}
+Let $X$ be smooth projective and let $Z\subset X$ be smooth of codimension $r$.  The standard blow-up formula is
+\[
+ H^m(\Bl_ZX,\Q)
+ \cong H^m(X,\Q)\oplus\bigoplus_{a=1}^{r-1}H^{m-2a}(Z,\Q)(-a).
+\]
+The maximal level-one construction commutes with finite direct sums because the category of polarizable rational Hodge structures is semisimple, and it commutes with Tate twists because a Tate twist shifts all Hodge bidegrees simultaneously without changing the level.  Therefore
+\[
+ H_h^m(\Bl_ZX)
+ \cong H_h^m(X)\oplus\bigoplus_{a=1}^{r-1}H_h^{m-2a}(Z)(-a).
+\]
+For odd degree $m=2k-1$, this yields
+\[
+ J_h^k(\Bl_ZX)
+ \cong J_h^k(X)\times\prod_{a=1}^{r-1}J_h^{k-a}(Z),
+\]
+at least up to isogeny if one works only with rational Hodge structures.  Integral lattices are needed for an actual isomorphism of complex tori.
+\end{chatanswer}
+
+\begin{chatquestion}[Compatibility with product polarizations]
+Is this blow-up decomposition compatible with product polarizations?  In Voisin's exercise, the exceptional curve factor carries the theta polarization.  Can this be used in the generalized argument?
+\end{chatquestion}
+
+\begin{chatanswer}
+The exceptional summand coming from a curve has a canonical polarization, up to the sign dictated by the blow-up convention.  More precisely, the Poincare pairing on the blow-up restricts to the usual intersection pairing on $H^1(C)$ after the appropriate Tate twist and sign.  Thus the associated factor is the Jacobian with its canonical principal theta polarization.
+
+For a chosen polarization on the ambient maximal level-one Hodge structure, the direct sum can be equipped with the product polarization.  This is sufficient for a fixed blow-up calculation.  The stronger assertion needed for a global motivic measure is subtler: one must show that the polarization is canonical and compatible with all factorizations.  Outside middle degree there is generally no canonical polarization independent of an ample class.  Hence blow-up compatibility with a chosen product polarization is easier than factorization-independent global polarization.
+\end{chatanswer}
+
+\begin{chatquestion}[Lewis's Hodge and Lieberman Jacobians]
+How do Lewis's Hodge Jacobian $J_h^k(X)$ and Lieberman or algebraic Jacobian $J_a^k(X)$ fit into this discussion?
+\end{chatquestion}
+
+\begin{chatanswer}
+The Hodge Jacobian $J_h^k(X)$ is associated with the maximal level-one rational Hodge substructure of $H^{2k-1}(X)$.  It is the largest abelian-type part visible purely from Hodge theory.  The algebraic or Lieberman Jacobian $J_a^k(X)$ is generated by Abel--Jacobi images of algebraically trivial cycles.  One always has a natural inclusion
+\[
+ J_a^k(X)\subseteq J_h^k(X),
+\]
+and equality is related to the generalized Hodge conjecture or Hodge--Grothendieck philosophy.  Both constructions are compatible with the additive blow-up decomposition.  The Hodge version is formal in the category of Hodge structures; the algebraic version uses the blow-up formula for Chow groups and algebraic representatives.
+\end{chatanswer}
+
+\section{Arapura--Kang realizations and one-motives}
+
+\begin{chatquestion}[A polarized refinement of the Arapura--Kang realization]
+Can the Arapura--Kang filtered Hodge realization be refined so that it remembers product polarizations on maximal level-one pieces?
+\end{chatquestion}
+
+\begin{chatanswer}
+The ordinary Arapura--Kang realization records filtered Hodge structures and is compatible with Bittner's blow-up presentation of the Grothendieck ring.  It forgets a chosen polarization.  One can formally define an enriched target consisting of polarized level-one Hodge structures, but to obtain a well-defined motivic measure from the ordinary Grothendieck ring one needs canonical polarizations compatible with all blow-up relations.  This is precisely what is not automatic.
+
+A safer construction is to enrich the source by polarization data, or to work only at the boundary level where the exceptional summand has a canonical relative Lefschetz pairing.  Thus a global polarized Arapura--Kang measure is conjectural in the required strength, while the unpolarized realization is already available.
+\end{chatanswer}
+
+\begin{chatquestion}[Relation with one-motives]
+What is the relation between maximal level-one Hodge structures and Deligne one-motives?
+\end{chatquestion}
+
+\begin{chatanswer}
+Pure polarizable Hodge structures of type $(-1,0)+(0,-1)$ correspond to abelian varieties up to isogeny.  They form the pure abelian part of Deligne one-motives.  A general one-motive also contains a lattice and a toric part and therefore gives a mixed Hodge structure of level at most one.  After Tate normalization, each $H_h^{2k-1}(X)$ is a pure weight-one Hodge structure and corresponds to a pure one-motive $[0\to A]$.
+
+A polarized version should be formulated as a self-dual one-motive, where the theta polarization of a curve Jacobian is encoded by duality or a Poincare biextension.  This suggests that the correct higher-dimensional target is a category of self-dual one-motives rather than arbitrary polarized Hodge summands.
+\end{chatanswer}
+
+\section{Affine-line cancellation in the Grothendieck ring}
+
+\begin{chatquestion}[The curve cancellation problem]
+Let $C,D$ be smooth projective curves over $\C$.  If
+\[
+ \Lef[C]=\Lef[D]
+\]
+in $K_0(\Var_{\C})$, is it true that $C\cong D$?
+\end{chatquestion}
+
+\begin{chatanswer}
+This is the curve-supported affine-line cancellation problem.  It is not implied by the fact that curves are determined by their stable birational classes, because multiplication by $\Lef$ may kill nonzero classes in the Grothendieck ring.  Borisov proved that $\Lef$ is a zero divisor in general.  The special question is whether its kernel contains a difference of smooth projective curve classes.
+
+The identity
+\[
+ \Lef[C]=[\PP^1\times C]-[C]
+\]
+shows that
+\[
+ \Lef([C]-[D])=0
+\]
+is equivalent to
+\[
+ [\PP^1\times C]-[\PP^1\times D]=[C]-[D].
+\]
+The top-dimensional shadow is therefore the difference of two ruled surfaces.  Any solution must show that higher-dimensional motivic relations cannot identify these ruled-surface terms unless their base curves are isomorphic.
+\end{chatanswer}
+
+\begin{chatquestion}[Categorical approach]
+Can the categorical motivic measure solve the curve cancellation problem?
+\end{chatquestion}
+
+\begin{chatanswer}
+The Bondal--Larsen--Lunts motivic measure sends a smooth projective variety to the class of its derived category in a Grothendieck group of pretriangulated dg-categories.  Since
+\[
+ D^b(\PP^1\times C)=\langle D^b(C),D^b(C)\rangle
+\]
+and
+\[
+ \Lef[C]=[\PP^1\times C]-[C],
+\]
+the categorical measure morally sends $\Lef[C]$ to $[D^b(C)]$.  Thus affine-line cancellation would follow from an atomicity statement
+\[
+ [D^b(C)]=[D^b(D)]\Longrightarrow D^b(C)\simeq D^b(D),
+\]
+combined with reconstruction or derived Torelli for curves.  The missing point is cancellation in the Grothendieck group of dg-categories; equality of classes is weaker than equivalence of categories.
+\end{chatanswer}
+
+\section{Kontsevich--Tschinkel Burnside birational types}
+
+\begin{chatquestion}[Relation with the Burnside ring]
+What is the relation between affine-line cancellation and Kontsevich--Tschinkel's Burnside birational ring, especially their specialization theorem?
+\end{chatquestion}
+
+\begin{chatanswer}
+Kontsevich and Tschinkel define a Burnside ring generated by birational types of smooth irreducible varieties.  Multiplication is induced by products.  In this ring
+\[
+ [\A^1\times C]_{\Burn}=[\PP^1\times C]_{\Burn},
+\]
+because both varieties have function field $\C(C)(t)$.  Equality of these Burnside classes for $C$ and $D$ implies stable birational equivalence of the curves, hence birational equivalence, hence $C\cong D$.
+
+The ordinary Grothendieck-ring relation gives only equality in the associated graded for the dimension filtration.  There is a natural surjective map
+\[
+ \gamma_n:\Burn_n(\C)\longrightarrow \gr_n^F K_0(\Var_{\C}),
+\]
+but it is not known to be injective in general.  Therefore the missing Burnside statement is that the kernel of $\gamma_2$ contains no difference
+\[
+ [\PP^1\times C]-[\PP^1\times D]
+\]
+for nonisomorphic curves.
+
+Kontsevich--Tschinkel's specialization theorem, including their Theorem 16, shows that Burnside boundary classes can preserve genuine birational information under specialization.  It does not directly prove affine-line cancellation, but it motivates seeking a boundary invariant that extracts the base curve of a ruled surface.
+\end{chatanswer}
+
+\begin{editorialnote}
+An earlier version of the discussion briefly suggested that equality in $\gr_2^F K_0$ might directly imply equality in $\Burn_2$.  This was corrected: the map $\Burn_2\to\gr_2^F K_0$ is surjective but not known to be injective.  The ruled-surface injectivity statement is exactly a missing theorem, not an established fact.
+\end{editorialnote}
+
+\begin{chatquestion}[Concrete birational reduction]
+Can the missing Burnside step be reduced to a concrete birational problem?
+\end{chatquestion}
+
+\begin{chatanswer}
+Yes.  One seeks an additive map
+\[
+ \Theta:\gr_2^F K_0(\Var_{\C})\longrightarrow \Z[\Bir_1/\C]
+\]
+such that
+\[
+ \Theta([\PP^1\times C])=[C].
+\]
+Geometrically, $\Theta$ should extract the one-dimensional maximal rationally connected quotient of a ruled surface.  Equivalently, one asks whether the Burnside-to-graded kernel is trivial on the subgroup generated by ruled surfaces over curves.  This is a precise birational formulation of the cancellation problem.
+\end{chatanswer}
+
+\section{Lin--Shinder motivic invariants}
+
+\begin{chatquestion}[Does Lin--Shinder provide insight?]
+Does the approach of Lin and Shinder provide insight into affine-line cancellation?
+\end{chatquestion}
+
+\begin{chatanswer}
+Yes.  For a birational map $\varphi:X\dashrightarrow Y$ of $n$-folds, Lin and Shinder define
+\[
+ c(\varphi)\in\Z[\Bir_{n-1}/k]
+\]
+from the codimension-one exceptional loci, and a refined invariant
+\[
+ \widetilde c(\varphi)\in K_0(\Var_{\le n-1}/k).
+\]
+The refined invariant is additive under composition.  Their structural result identifies the kernel of
+\[
+ K_0(\Var_{\le n-1}/k)\longrightarrow K_0(\Var_{\le n}/k)
+\]
+as generated by $\widetilde c(\Bir(X))$ for $n$-dimensional birational classes $X$.
+
+Thus, if $\Lef([C]-[D])=0$ in the full Grothendieck ring, the relation dies through a finite chain of higher-dimensional Lin--Shinder boundaries.  The cancellation problem becomes the question whether such boundaries can produce a nonzero ruled-surface difference.
+
+Their $L$-link construction gives explicit relations of the form
+\[
+ \Lef([X]-[Y])=0.
+\]
+Over non-algebraically closed fields, genus-one examples yield nonisomorphic curves with such a relation.  Over $\C$, the relevant torsors become trivial, so these examples do not give a complex counterexample.
+\end{chatanswer}
+
+\begin{chatquestion}[Vanishing of $c(\Bir(X))$ for arbitrary threefolds]
+By this line of thought, is it true that $c(\Bir(X))=0$ for an arbitrary smooth projective complex threefold?  This would parallel the improvement of Lamy--Sebag using the maximal level-one Hodge substructure.
+\end{chatquestion}
+
+\begin{chatanswer}
+Assuming the polarized blow-up formula for $J_h^2$, the argument gives exactly this conclusion.  Let $\varphi\in\Bir(X)$.  A weak factorization has point and curve centers, so
+\[
+ c(\varphi)=\sum_i[\PP^1\times C_i]-\sum_j[\PP^1\times D_j]+m[\PP^2].
+\]
+The product-polarized blow-up formula gives
+\[
+ J_h^2(X)\times\prod_iJ(C_i)
+ \cong J_h^2(X)\times\prod_jJ(D_j)
+\]
+as polarized abelian varieties.  Unique decomposition and Torelli match the positive-genus curve centers.  The remaining rational term is killed by the Neron--Severi representation formula of Lin--Shinder, which is zero for a self-map.  Hence
+\[
+ c(\varphi)=0.
+\]
+Therefore
+\[
+ c(\Bir(X))=0
+\]
+for smooth projective complex threefolds within this polarized maximal-level-one framework.
+\end{chatanswer}
+
+\begin{chatquestion}[Confirmation of the previously established compatibility]
+We already discussed and proved that the maximal level-one Hodge substructure is compatible with blow-ups and product polarizations in the earlier discussion of Lamy--Sebag.  Does this remove the caveat?
+\end{chatquestion}
+
+\begin{chatanswer}
+Yes.  Once one accepts the previously established product-polarized blow-up formula
+\[
+ J_h^2(\Bl_CX)\cong J_h^2(X)\times J(C),
+\]
+the threefold vanishing follows exactly as above.  This is the appropriate replacement of the full intermediate Jacobian in the Lamy--Sebag argument.
+\end{chatanswer}
+
+\section{Higher-dimensional ideas}
+
+\begin{chatquestion}[Ideas beyond dimension three]
+For higher dimension, do you have an idea to solve the motivic cancellation problem for the affine line, at least when the class contains smooth curves?
+\end{chatquestion}
+
+\begin{chatanswer}
+Full affine-line cancellation is false because $\Lef$ is a zero divisor.  The realistic target is the curve-supported statement
+\[
+ \Lef([C]-[D])=0\Longrightarrow C\cong D.
+\]
+Three possible directions were proposed.
+
+First, construct a curve-MRC shadow of Lin--Shinder boundaries.  For a surface $S$, define
+\[
+ \theta_{\MRC}([S])=
+ \begin{cases}
+ [B],&S\text{ is ruled over a curve }B,\\
+ 0,&\text{otherwise.}
+ \end{cases}
+\]
+Then $\theta_{\MRC}([\PP^1\times C])=[C]$.  The missing theorem is that all higher-dimensional Lin--Shinder boundaries have zero curve-MRC shadow.
+
+Second, use a polarized one-motivic or level-one Hodge realization.  The blow-up formula in all odd degrees detects level-one pieces of all centers.  One tries to extract the principally polarized curve-Jacobian factors and prove that their alternating boundary contribution vanishes.
+
+Third, use the categorical motivic measure and prove that the subgroup generated by derived categories of curves is cancellative or atomic.
+\end{chatanswer}
+
+\begin{chatquestion}[Develop the approach and identify the missing piece]
+Can you develop this approach in more detail and indicate the precise missing piece?
+\end{chatquestion}
+
+\begin{chatanswer}
+The unpolarized level-one realization is formal.  Define
+\[
+ \mathcal H_1(X)=\bigoplus_{p\ge1}H_h^{2p-1}(X)(p-1).
+\]
+For a blow-up along $Z$ of codimension $r$,
+\[
+ \mathcal H_1(\Bl_ZX)-\mathcal H_1(X)
+ =(t+\cdots+t^{r-1})\mathcal H_1(Z),
+\]
+where $t$ records the Lefschetz shift.  This mirrors
+\[
+ [\Bl_ZX]-[X]=(\Lef+\cdots+\Lef^{r-1})[Z].
+\]
+Consequently, for a birational map $\varphi:X\dashrightarrow Y$,
+\[
+ \mathcal H_1(\widetilde c(\varphi))
+ =\mathcal H_1(Y)-\mathcal H_1(X).
+\]
+For a self-map this vanishes.
+
+Applied to $\Lef([C]-[D])$, this gives only an isomorphism of rational Hodge structures
+\[
+ H^1(C,\Q)\cong H^1(D,\Q),
+\]
+so the Jacobians are isogenous.  Torelli requires the principal theta polarizations.  The precise missing piece is therefore a polarized boundary realization which sends $\Lef[C]$ to $(J(C),\Theta_C)$ and kills all Lin--Shinder self-boundaries.
+\end{chatanswer}
+
+\begin{chatquestion}[Relation to maximal level-one Hodge structures]
+Can you develop the program more thoroughly and explain its relation with the maximal level-one Hodge substructure?
+\end{chatquestion}
+
+\begin{chatanswer}
+The curve-MRC projection is the birational-geometric shadow of the maximal level-one Hodge realization.  If a smooth projective center $Z$ has MRC quotient a curve $B_Z$, then rationally connected fibers contribute no $H^1$, so
+\[
+ H^1(Z)\cong H^1(B_Z),\qquad \Alb(Z)\sim J(B_Z).
+\]
+For a ruled surface $S\sim\PP^1\times C$ one has
+\[
+ H^1(S)=H^1(C),\qquad H^3(S)=H^1(C)(-1).
+\]
+Thus the base curve is detected by the level-one Hodge structure, while the principal polarization is needed to recover it by Torelli.
+
+The proposed invariant should be Lefschetz graded because a center of codimension $r$ contributes in several Tate shifts.  It should assign to a center its curve-Jacobian part and satisfy an alternating equality for the centers in every weak factorization of a birational self-map.
+\end{chatanswer}
+
+\begin{chatquestion}[Full compatibility with Lin--Shinder boundaries]
+Can you develop in full detail the assertion that the polarized maximal level-one realization is compatible with Lin--Shinder boundaries?
+\end{chatquestion}
+
+\begin{chatanswer}
+For the unpolarized realization, compatibility is proved by the blow-up formula.  For a blow-down
+\[
+ \pi:\widetilde X=\Bl_ZX\to X
+\]
+with exceptional divisor $E=\PP(N_{Z/X})$, Lin--Shinder's refined boundary is
+\[
+ \widetilde c(\pi)=[Z]-[E]
+ =-(\Lef+\cdots+\Lef^{r-1})[Z].
+\]
+Applying the level-one realization gives
+\[
+ \mathcal H_1(\widetilde c(\pi))
+ =\mathcal H_1(X)-\mathcal H_1(\widetilde X).
+\]
+Additivity yields
+\[
+ \mathcal H_1(\widetilde c(\varphi))
+ =\mathcal H_1(Y)-\mathcal H_1(X).
+\]
+
+A naive global polarized version would require canonical polarizations on all $J_h^p(X)$ and is too strong.  Outside middle degree, polarizations depend on auxiliary ample classes.  The correct replacement is boundary-level: one should use the canonical relative Lefschetz pairing on the exceptional contribution, or formulate the target as self-dual level-one Hodge structures or self-dual one-motives.
+\end{chatanswer}
+
+\begin{chatquestion}[Can the missing theorem be proved?]
+Can you prove the missing theorem, or give lines of thought to overcome the obstacle and prove affine-line cancellation for smooth curves?
+\end{chatquestion}
+
+\begin{chatanswer}
+A complete proof in all dimensions was not obtained.  The strong global polarized realization is likely false in its naive form.  What is proved is the unpolarized boundary compatibility.  The remaining theorem can be attacked in three ways.
+
+\medskip
+\noindent\textbf{1. Self-dual Lefschetz-graded Hodge packages.}
+The exceptional difference in a blow-up is not arbitrary: it is built from
+\[
+ H^*(Z)\otimes\widetilde H^*(\PP^{r-1}),
+\]
+and the projective-space factor carries a canonical Lefschetz form.  One should define a category of self-dual, Lefschetz-graded, level-one Hodge objects and construct a chain map from the Lin--Shinder boundary complex.  For a curve, the self-dual object is $H^1(C)$ with its intersection form, which is exactly the principally polarized Jacobian.
+
+\medskip
+\noindent\textbf{2. Self-dual one-motives.}
+Use the one-motivic part of the motive together with motivic duality or the Poincare biextension.  For curves this recovers $(J(C),\Theta_C)$ canonically.  The desired theorem becomes the statement that the self-dual one-motivic realization is compatible with the Lin--Shinder boundary differential.
+
+\medskip
+\noindent\textbf{3. Direct weak-factorization/MRC argument.}
+Define
+\[
+ \mathcal J_{\mathrm{curv}}(Z)=
+ \begin{cases}
+ (J(B_Z),\Theta_{B_Z}),&\dim\MRC(Z)=1,\\
+ 0,&\text{otherwise.}
+ \end{cases}
+\]
+For a weak factorization with centers $Z_i$ and $T_j$, prove
+\[
+ \sum_i(t+\cdots+t^{r_i-1})\mathcal J_{\mathrm{curv}}(Z_i)
+ =
+ \sum_j(t+\cdots+t^{s_j-1})\mathcal J_{\mathrm{curv}}(T_j).
+\]
+One may try to reduce this to elementary modifications of weak factorizations, as in Kontsevich--Tschinkel's proof of independence of Burnside specialization.  Projective bundles and blow-ups preserve the MRC base birationally; the remaining issue is a combinatorial cancellation of the weighted strata.
+\end{chatanswer}
+
+\begin{editorialnote}
+The discussion does not claim that the higher-dimensional polarized boundary theorem has been proved.  The rigorous established part is the unpolarized compatibility.  The polarized self-dual Hodge/one-motivic construction is a research program whose completion would imply curve-supported affine-line cancellation.
+\end{editorialnote}
+
+\section{Conditional conclusion}
+
+\begin{chatquestion}[Conditional implication]
+What exactly would the missing boundary theorem imply?
+\end{chatquestion}
+
+\begin{chatanswer}
+Suppose there exists a boundary-level invariant $\mathcal P_{\mathrm{curv}}$ with the following properties:
+\[
+ \mathcal P_{\mathrm{curv}}(\widetilde c(\varphi))=0
+\]
+for every birational self-map $\varphi$, and
+\[
+ \mathcal P_{\mathrm{curv}}(\Lef[C])=[(J(C),\Theta_C)]
+\]
+for every smooth projective curve $C$.  If
+\[
+ \Lef([C]-[D])=0,
+\]
+then applying $\mathcal P_{\mathrm{curv}}$ gives
+\[
+ [(J(C),\Theta_C)]=[(J(D),\Theta_D)].
+\]
+Unique decomposition of principally polarized abelian varieties and Torelli imply
+\[
+ C\cong D.
+\]
+Thus the entire problem is reduced to constructing and proving factorization-independence of this polarized curve-Jacobian boundary realization.
+\end{chatanswer}
+
+\section{References}
+
+\begin{thebibliography}{99}
+
+\bibitem{AKMW}
+D. Abramovich, K. Karu, K. Matsuki, and J. W\l odarczyk,
+\emph{Torification and factorization of birational maps},
+J. Amer. Math. Soc. 15 (2002), 531--572.
+
+\bibitem{ArapuraKang}
+D. Arapura and S.-J. Kang,
+\emph{Functoriality of the coniveau filtration},
+Canad. Math. Bull. 50 (2007), 161--171.
+
+\bibitem{Bittner}
+F. Bittner,
+\emph{The universal Euler characteristic for varieties of characteristic zero},
+Compos. Math. 140 (2004), 1011--1032.
+
+\bibitem{Borisov}
+L. Borisov,
+\emph{The class of the affine line is a zero divisor in the Grothendieck ring},
+J. Algebraic Geom. 27 (2018), 203--209.
+
+\bibitem{BLL}
+A. Bondal, M. Larsen, and V. Lunts,
+\emph{Grothendieck ring of pretriangulated categories},
+Int. Math. Res. Not. 2004, no. 29, 1461--1495.
+
+\bibitem{BVK}
+L. Barbieri-Viale and B. Kahn,
+\emph{On the derived category of 1-motives},
+Ast\'erisque 381 (2016).
+
+\bibitem{KT}
+M. Kontsevich and Y. Tschinkel,
+\emph{Specialization of birational types},
+Invent. Math. 217 (2019), 415--432.
+
+\bibitem{LamySebag}
+S. Lamy and J. Sebag,
+\emph{Birational self-maps and piecewise algebraic geometry},
+J. Math. Sci. Univ. Tokyo 19 (2012), 325--357.
+
+\bibitem{LarsenLunts}
+M. Larsen and V. Lunts,
+\emph{Motivic measures and stable birational geometry},
+Mosc. Math. J. 3 (2003), 85--95.
+
+\bibitem{LinShinder}
+H.-Y. Lin and E. Shinder,
+\emph{Motivic invariants of birational maps},
+arXiv:2207.07389.
+
+\bibitem{Murre}
+J. P. Murre,
+\emph{Applications of algebraic $K$-theory to the theory of algebraic cycles},
+in Algebraic Geometry, Sitges 1983, Lecture Notes in Math. 1124, Springer, 1985.
+
+\bibitem{ShinderZhang}
+E. Shinder and Z. Zhang,
+\emph{$L$-equivalence for degree five elliptic curves, elliptic fibrations and K3 surfaces},
+Bull. Lond. Math. Soc. 52 (2020), 395--409.
+
+\bibitem{VoisinI}
+C. Voisin,
+\emph{Hodge Theory and Complex Algebraic Geometry I},
+Cambridge Studies in Advanced Mathematics 76, Cambridge University Press, 2002.
+
+\bibitem{VoisinII}
+C. Voisin,
+\emph{Hodge Theory and Complex Algebraic Geometry II},
+Cambridge Studies in Advanced Mathematics 77, Cambridge University Press, 2003.
+
+\bibitem{Zakharevich}
+I. Zakharevich,
+\emph{The annihilator of the Lefschetz motive},
+Duke Math. J. 166 (2017), 1989--2022.
+
+\end{thebibliography}
+
+\end{document}
