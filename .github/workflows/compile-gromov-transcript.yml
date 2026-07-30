@@ -1,0 +1,36 @@
+name: Compile Gromov transcript PDF
+
+on:
+  push:
+    branches:
+      - chatgpt-latex-transcript-20260731
+    paths:
+      - 'notes/gromov_affine_line_complete_chronological_transcript.tex'
+      - '.github/workflows/compile-gromov-transcript.yml'
+  pull_request:
+    paths:
+      - 'notes/gromov_affine_line_complete_chronological_transcript.tex'
+      - '.github/workflows/compile-gromov-transcript.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: notes/gromov_affine_line_complete_chronological_transcript.tex
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: gromov-affine-line-transcript-pdf
+          path: notes/gromov_affine_line_complete_chronological_transcript.pdf
+          if-no-files-found: error
